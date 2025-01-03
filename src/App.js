@@ -2,6 +2,12 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 function App() {
   const { handleSubmit, control, reset } = useForm();
@@ -33,7 +39,6 @@ function App() {
             />
           )}
         />
-
         {/* Last Name Field */}
         <Controller
           name="lastName"
@@ -52,7 +57,6 @@ function App() {
             />
           )}
         />
-
         {/* Email Field */}
         <Controller
           name="email"
@@ -77,7 +81,87 @@ function App() {
             />
           )}
         />
+        {/*mobile number */}
+        <Controller
+          name="mobile"
+          control={control}
+          defaultValue={""}
+          rules={{
+            required: "Mobile Number",
+            pattern: {
+              value: /^[0-9]/,
+              message: "invalid character",
+            },
+            maxLength: {
+              value: 10,
+              message: "Enter as Indian standard (10 digits)",
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              {...field}
+              label="Mobile Number"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              error={!!error}
+              helperText={error ? error.message : ""}
+            />
+          )}
+        />
+        {/*Radio Functionality */}
+        <Controller
+          name="gender"
+          control={control}
+          rules={{
+            required: "Must Select one!",
+          }}
+          render={({ field }) => (
+            <FormControl>
+              <FormLabel id="demo-row-radio-buttons-group-label">
+                Gender
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                {...field} // Spread the field object to bind it to the radio group
+              >
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="prefer not"
+                  control={<Radio />}
+                  label="Prefer Not To Say"
+                />
+              </RadioGroup>
+            </FormControl>
+          )}
+        />
 
+      
+        {/* Checkbox functinality */}
+        <Controller
+          name="terms"
+          control={control}
+          defaultValue={""}
+          render={({ field }) => (
+            <FormControlLabel
+              required
+              control={<Checkbox {...field} />}
+              label="Terms and Conditions"
+              margin="normal"
+            />
+          )}
+        />
         {/* Submit Button */}
         <Button
           type="submit"
