@@ -13,10 +13,11 @@ import { Controller, useForm } from "react-hook-form";
 import { useSelector } from 'react-redux'
 import { Wrapper } from "../styles/components/Login/Login";
 import { darkTheme, lightTheme } from "../theme/color";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 
 function Login() {
-
   const theme = useSelector((state) => state.theme.value);
+  const navigate = useNavigate(); // Initialize navigate
 
   const { handleSubmit, control, reset, formState: { errors } } = useForm();
 
@@ -38,6 +39,9 @@ function Login() {
       console.log("No token found in localStorage");
     }
     reset(); // Resets the form after submission
+
+    // Redirect after form submission
+    navigate("/");  // Use navigate to redirect
   };
 
   const [showPassword, setShowPassword] = React.useState(false);
