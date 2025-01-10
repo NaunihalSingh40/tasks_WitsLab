@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { introduction, skills } from "./data";
 import {
   AboutContainer,
@@ -11,6 +11,10 @@ import {
 } from "../../styles/components/About/About";
 
 export const About = () => {
+  useEffect(() => {
+    document.title = "About Page";
+  }, []);
+
   return (
     <AboutContainer>
       <Header>
