@@ -11,11 +11,17 @@ import {
 } from "../../styles/components/Navbar/Navbar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormGroup, Switch } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleMode } from "../../redux/modeSlice";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
 
+  const dispatch = useDispatch()
+
+  const theme = useSelector((state) => state.theme.value)
+  console.log(theme);
+  
   return (
     <NavbarContainer>
       <Nav>
@@ -60,13 +66,13 @@ export const Navbar = () => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={darkMode}
-                  onChange={() => setDarkMode((prevMode) => !prevMode)}
+                  checked={theme}
+                  onChange={() => dispatch(toggleMode())}
                 />
               }
               label="Dark Mode"
               sx={{
-                color: darkMode ? "white" : "#2C3E50",
+                color: theme ? "white" : "#2C3E50",
                 fontWeight: "bolder",
                 textTransform: "uppercase",
                 fontSize: "1.5rem",
